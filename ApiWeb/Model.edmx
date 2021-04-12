@@ -1,0 +1,139 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="cbs_testModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="tbl_Messages">
+          <Key>
+            <PropertyRef Name="MessageId" />
+          </Key>
+          <Property Name="MessageId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Created_Date" Type="datetime" Nullable="false" />
+          <Property Name="SendTo" Type="varchar" MaxLength="300" Nullable="false" />
+          <Property Name="MessageValue" Type="varchar" MaxLength="160" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbl_SendingMessages">
+          <Key>
+            <PropertyRef Name="IdSent" />
+          </Key>
+          <Property Name="IdSent" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MessageId" Type="bigint" Nullable="false" />
+          <Property Name="Sent_Date" Type="datetime" Nullable="false" />
+          <Property Name="Confirmation_Code" Type="varchar" MaxLength="34" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__tbl_Sendi__Messa__267ABA7A">
+          <End Role="tbl_Messages" Type="Self.tbl_Messages" Multiplicity="1" />
+          <End Role="tbl_SendingMessages" Type="Self.tbl_SendingMessages" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Messages">
+              <PropertyRef Name="MessageId" />
+            </Principal>
+            <Dependent Role="tbl_SendingMessages">
+              <PropertyRef Name="MessageId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="cbs_testModelStoreContainer">
+          <EntitySet Name="tbl_Messages" EntityType="Self.tbl_Messages" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_SendingMessages" EntityType="Self.tbl_SendingMessages" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__tbl_Sendi__Messa__267ABA7A" Association="Self.FK__tbl_Sendi__Messa__267ABA7A">
+            <End Role="tbl_Messages" EntitySet="tbl_Messages" />
+            <End Role="tbl_SendingMessages" EntitySet="tbl_SendingMessages" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="cbs_testModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="tbl_Messages">
+          <Key>
+            <PropertyRef Name="MessageId" />
+          </Key>
+          <Property Name="MessageId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Created_Date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="SendTo" Type="String" MaxLength="300" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="MessageValue" Type="String" MaxLength="160" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="tbl_SendingMessages" Relationship="Self.FK__tbl_Sendi__Messa__267ABA7A" FromRole="tbl_Messages" ToRole="tbl_SendingMessages" />
+        </EntityType>
+        <EntityType Name="tbl_SendingMessages">
+          <Key>
+            <PropertyRef Name="IdSent" />
+          </Key>
+          <Property Name="IdSent" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MessageId" Type="Int64" Nullable="false" />
+          <Property Name="Sent_Date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Confirmation_Code" Type="String" MaxLength="34" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="tbl_Messages" Relationship="Self.FK__tbl_Sendi__Messa__267ABA7A" FromRole="tbl_SendingMessages" ToRole="tbl_Messages" />
+        </EntityType>
+        <Association Name="FK__tbl_Sendi__Messa__267ABA7A">
+          <End Role="tbl_Messages" Type="Self.tbl_Messages" Multiplicity="1" />
+          <End Role="tbl_SendingMessages" Type="Self.tbl_SendingMessages" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Messages">
+              <PropertyRef Name="MessageId" />
+            </Principal>
+            <Dependent Role="tbl_SendingMessages">
+              <PropertyRef Name="MessageId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="cbs_testEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="tbl_Messages" EntityType="Self.tbl_Messages" />
+          <EntitySet Name="tbl_SendingMessages" EntityType="Self.tbl_SendingMessages" />
+          <AssociationSet Name="FK__tbl_Sendi__Messa__267ABA7A" Association="Self.FK__tbl_Sendi__Messa__267ABA7A">
+            <End Role="tbl_Messages" EntitySet="tbl_Messages" />
+            <End Role="tbl_SendingMessages" EntitySet="tbl_SendingMessages" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="cbs_testModelStoreContainer" CdmEntityContainer="cbs_testEntities">
+          <EntitySetMapping Name="tbl_Messages">
+            <EntityTypeMapping TypeName="cbs_testModel.tbl_Messages">
+              <MappingFragment StoreEntitySet="tbl_Messages">
+                <ScalarProperty Name="MessageId" ColumnName="MessageId" />
+                <ScalarProperty Name="Created_Date" ColumnName="Created_Date" />
+                <ScalarProperty Name="SendTo" ColumnName="SendTo" />
+                <ScalarProperty Name="MessageValue" ColumnName="MessageValue" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_SendingMessages">
+            <EntityTypeMapping TypeName="cbs_testModel.tbl_SendingMessages">
+              <MappingFragment StoreEntitySet="tbl_SendingMessages">
+                <ScalarProperty Name="IdSent" ColumnName="IdSent" />
+                <ScalarProperty Name="MessageId" ColumnName="MessageId" />
+                <ScalarProperty Name="Sent_Date" ColumnName="Sent_Date" />
+                <ScalarProperty Name="Confirmation_Code" ColumnName="Confirmation_Code" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

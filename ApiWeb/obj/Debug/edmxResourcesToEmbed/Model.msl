@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="cbs_testModelStoreContainer" CdmEntityContainer="cbs_testEntities">
+    <EntitySetMapping Name="tbl_Messages">
+      <EntityTypeMapping TypeName="cbs_testModel.tbl_Messages">
+        <MappingFragment StoreEntitySet="tbl_Messages">
+          <ScalarProperty Name="MessageId" ColumnName="MessageId" />
+          <ScalarProperty Name="Created_Date" ColumnName="Created_Date" />
+          <ScalarProperty Name="SendTo" ColumnName="SendTo" />
+          <ScalarProperty Name="MessageValue" ColumnName="MessageValue" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_SendingMessages">
+      <EntityTypeMapping TypeName="cbs_testModel.tbl_SendingMessages">
+        <MappingFragment StoreEntitySet="tbl_SendingMessages">
+          <ScalarProperty Name="IdSent" ColumnName="IdSent" />
+          <ScalarProperty Name="MessageId" ColumnName="MessageId" />
+          <ScalarProperty Name="Sent_Date" ColumnName="Sent_Date" />
+          <ScalarProperty Name="Confirmation_Code" ColumnName="Confirmation_Code" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

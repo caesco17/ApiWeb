@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="cbs_testModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="tbl_Messages">
+    <Key>
+      <PropertyRef Name="MessageId" />
+    </Key>
+    <Property Name="MessageId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Created_Date" Type="datetime" Nullable="false" />
+    <Property Name="SendTo" Type="varchar" MaxLength="300" Nullable="false" />
+    <Property Name="MessageValue" Type="varchar" MaxLength="160" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tbl_SendingMessages">
+    <Key>
+      <PropertyRef Name="IdSent" />
+    </Key>
+    <Property Name="IdSent" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="MessageId" Type="bigint" Nullable="false" />
+    <Property Name="Sent_Date" Type="datetime" Nullable="false" />
+    <Property Name="Confirmation_Code" Type="varchar" MaxLength="34" Nullable="false" />
+  </EntityType>
+  <Association Name="FK__tbl_Sendi__Messa__267ABA7A">
+    <End Role="tbl_Messages" Type="Self.tbl_Messages" Multiplicity="1" />
+    <End Role="tbl_SendingMessages" Type="Self.tbl_SendingMessages" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_Messages">
+        <PropertyRef Name="MessageId" />
+      </Principal>
+      <Dependent Role="tbl_SendingMessages">
+        <PropertyRef Name="MessageId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="cbs_testModelStoreContainer">
+    <EntitySet Name="tbl_Messages" EntityType="Self.tbl_Messages" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_SendingMessages" EntityType="Self.tbl_SendingMessages" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__tbl_Sendi__Messa__267ABA7A" Association="Self.FK__tbl_Sendi__Messa__267ABA7A">
+      <End Role="tbl_Messages" EntitySet="tbl_Messages" />
+      <End Role="tbl_SendingMessages" EntitySet="tbl_SendingMessages" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
